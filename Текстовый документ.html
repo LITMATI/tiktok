@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Мои соцсети</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f8fafd 0%, #ecf3f9 100%);
+            font-family: system-ui, -apple-system, 'Segoe UI', 'Inter', Roboto, Helvetica, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2.8rem;
+        }
+
+        .header h1 {
+            font-size: 1.9rem;
+            font-weight: 600;
+            color: #111827;
+            letter-spacing: -0.3px;
+        }
+
+        /* сетка карточек */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            gap: 2rem;
+            justify-items: center;
+            align-items: stretch;
+        }
+
+        /* карточка-ссылка */
+        .card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            text-decoration: none;
+            color: #0f172a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.35s cubic-bezier(0.2, 0.85, 0.4, 1), 
+                        box-shadow 0.4s ease,
+                        background 0.25s;
+            box-shadow: 0 20px 32px -14px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            width: 100%;
+            height: 100%;
+            will-change: transform;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 42px -18px rgba(0, 0, 0, 0.18);
+            background: #ffffff;
+            border-color: rgba(203, 213, 225, 0.5);
+        }
+
+        .icon {
+            font-size: 4.4rem;
+            margin-bottom: 1.2rem;
+            transition: transform 0.3s ease, color 0.2s;
+        }
+
+        .card:hover .icon {
+            transform: scale(1.02);
+        }
+
+        .label {
+            font-size: 1.5rem;
+            font-weight: 620;
+            letter-spacing: -0.3px;
+            margin-bottom: 0.3rem;
+        }
+
+        .username {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #5b6e8c;
+            background: rgba(0, 0, 0, 0.02);
+            padding: 0.2rem 0.8rem;
+            border-radius: 30px;
+            margin-top: 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .card:hover .username {
+            color: #2c3e66;
+            background: rgba(0, 0, 0, 0.04);
+        }
+
+        /* декоративная линия */
+        .card::after {
+            content: '';
+            display: block;
+            width: 44px;
+            height: 2.5px;
+            background: #dce3ec;
+            margin-top: 1rem;
+            border-radius: 4px;
+            transition: width 0.3s cubic-bezier(0.2, 0.8, 0.4, 1), background 0.2s;
+        }
+
+        .card:hover::after {
+            width: 68px;
+            background: #b9c4d4;
+        }
+
+        /* акценты цвета при наведении */
+        .card-tiktok:hover .icon {
+            color: #000000;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .card-telegram:hover .icon {
+            color: #27A6E5;
+            filter: drop-shadow(0 2px 5px rgba(39, 166, 229, 0.2));
+        }
+
+        /* анимация появления */
+        @keyframes softRise {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: softRise 0.55s cubic-bezier(0.16, 1, 0.2, 1) backwards;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.05s; }
+        .card:nth-child(2) { animation-delay: 0.12s; }
+        .card:nth-child(3) { animation-delay: 0.19s; }
+
+        @media (max-width: 680px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            .label {
+                font-size: 1.3rem;
+            }
+            .icon {
+                font-size: 3.5rem;
+            }
+            .grid {
+                gap: 1.3rem;
+            }
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.75rem;
+            color: #8a99ae;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            padding-top: 1.8rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>мои соцсети</h1>
+    </div>
+
+    <div class="grid">
+        <!-- 1. TikTok (ссылка обновлена) -->
+        <a href="https://www.tiktok.com/@tgk_prosto.chelik" 
+           class="card card-tiktok" 
+           target="_blank" 
+           rel="noopener noreferrer">
+            <i class="fab fa-tiktok icon"></i>
+            <span class="label">мой Тик-Ток</span>
+            <span class="username">@tgk_prosto.chelik</span>
+        </a>
+
+        <!-- 2. Первый Telegram (исправлено "моц" → "мой ТГК", ссылка на prosto_chelim) -->
+        <a href="https://t.me/prosto_chelim" 
+           class="card card-telegram" 
+           target="_blank" 
+           rel="noopener noreferrer">
+            <i class="fab fa-telegram icon"></i>
+            <span class="label">мой ТГК</span>
+            <span class="username">@prosto_chelim</span>
+        </a>
+
+        <!-- 3. Второй Telegram (возвращён как в первом запросе: "все о переводчике", ссылка perevod_litmati) -->
+        <a href="https://t.me/perevod_litmati" 
+           class="card card-telegram" 
+           target="_blank" 
+           rel="noopener noreferrer">
+            <i class="fab fa-telegram icon"></i>
+            <span class="label">все о переводчике</span>
+            <span class="username">@perevod_litmati</span>
+        </a>
+    </div>
+
+    <div class="footer">
+        нажми на карточку — откроется в новой вкладке
+    </div>
+</div>
+</body>
+</html>
