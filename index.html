@@ -13,14 +13,66 @@
             box-sizing: border-box;
         }
 
+        /* базовые переменные для светлой темы (по умолчанию) */
+        :root {
+            --bg-gradient-start: #f8fafd;
+            --bg-gradient-end: #ecf3f9;
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --card-bg-hover: #ffffff;
+            --text-primary: #111827;
+            --text-secondary: #5b6e8c;
+            --text-secondary-hover: #2c3e66;
+            --border-color: rgba(255, 255, 255, 0.7);
+            --border-hover: rgba(203, 213, 225, 0.5);
+            --line-color: #dce3ec;
+            --line-hover: #b9c4d4;
+            --footer-color: #8a99ae;
+            --footer-border: rgba(148, 163, 184, 0.2);
+            --shadow: 0 20px 32px -14px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 30px 42px -18px rgba(0, 0, 0, 0.18);
+        }
+
+        /* тёмная тема — автоматически при включённой системной тёмной теме */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-gradient-start: #0f1724;
+                --bg-gradient-end: #1a2332;
+                --card-bg: rgba(30, 41, 59, 0.9);
+                --card-bg-hover: #1e2a3e;
+                --text-primary: #f1f5f9;
+                --text-secondary: #94a3b8;
+                --text-secondary-hover: #cbd5e1;
+                --border-color: rgba(51, 65, 85, 0.6);
+                --border-hover: rgba(71, 85, 105, 0.7);
+                --line-color: #334155;
+                --line-hover: #475569;
+                --footer-color: #64748b;
+                --footer-border: rgba(71, 85, 105, 0.3);
+                --shadow: 0 20px 32px -14px rgba(0, 0, 0, 0.3);
+                --shadow-hover: 0 30px 42px -18px rgba(0, 0, 0, 0.5);
+            }
+            /* небольшая корректировка иконок в тёмной теме для контраста */
+            .card-tiktok:hover .icon {
+                color: #ffffff;
+                text-shadow: 0 1px 4px rgba(255,255,255,0.2);
+            }
+            .card-telegram:hover .icon {
+                color: #5bc0ff;
+            }
+            .card-site:hover .icon {
+                color: #60a5fa;
+            }
+        }
+
         body {
-            background: linear-gradient(135deg, #f8fafd 0%, #ecf3f9 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             font-family: system-ui, -apple-system, 'Segoe UI', 'Inter', Roboto, Helvetica, sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem 1.5rem;
+            transition: background 0.3s ease, color 0.2s;
         }
 
         .container {
@@ -37,11 +89,12 @@
         .header h1 {
             font-size: 1.9rem;
             font-weight: 600;
-            color: #111827;
+            color: var(--text-primary);
             letter-spacing: -0.3px;
+            transition: color 0.2s;
         }
 
-        /* сетка карточек — теперь 4 элемента, адаптивно */
+        /* сетка карточек */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -52,21 +105,22 @@
 
         /* карточка-ссылка */
         .card {
-            background: rgba(255, 255, 255, 0.96);
+            background: var(--card-bg);
             border-radius: 2rem;
             padding: 2rem 1.5rem;
             text-align: center;
             text-decoration: none;
-            color: #0f172a;
+            color: var(--text-primary);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             transition: transform 0.35s cubic-bezier(0.2, 0.85, 0.4, 1), 
                         box-shadow 0.4s ease,
-                        background 0.25s;
-            box-shadow: 0 20px 32px -14px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.7);
+                        background 0.25s ease;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(2px);
             width: 100%;
             height: 100%;
             will-change: transform;
@@ -74,15 +128,16 @@
 
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 30px 42px -18px rgba(0, 0, 0, 0.18);
-            background: #ffffff;
-            border-color: rgba(203, 213, 225, 0.5);
+            box-shadow: var(--shadow-hover);
+            background: var(--card-bg-hover);
+            border-color: var(--border-hover);
         }
 
         .icon {
             font-size: 4.4rem;
             margin-bottom: 1.2rem;
             transition: transform 0.3s ease, color 0.2s;
+            color: inherit;
         }
 
         .card:hover .icon {
@@ -94,12 +149,13 @@
             font-weight: 620;
             letter-spacing: -0.3px;
             margin-bottom: 0.3rem;
+            color: var(--text-primary);
         }
 
         .username {
             font-size: 0.85rem;
             font-weight: 500;
-            color: #5b6e8c;
+            color: var(--text-secondary);
             background: rgba(0, 0, 0, 0.02);
             padding: 0.2rem 0.8rem;
             border-radius: 30px;
@@ -108,7 +164,7 @@
         }
 
         .card:hover .username {
-            color: #2c3e66;
+            color: var(--text-secondary-hover);
             background: rgba(0, 0, 0, 0.04);
         }
 
@@ -118,7 +174,7 @@
             display: block;
             width: 44px;
             height: 2.5px;
-            background: #dce3ec;
+            background: var(--line-color);
             margin-top: 1rem;
             border-radius: 4px;
             transition: width 0.3s cubic-bezier(0.2, 0.8, 0.4, 1), background 0.2s;
@@ -126,10 +182,10 @@
 
         .card:hover::after {
             width: 68px;
-            background: #b9c4d4;
+            background: var(--line-hover);
         }
 
-        /* акценты цвета при наведении */
+        /* акценты цвета при наведении (базовые для светлой темы, в dark медиа уже переопределены) */
         .card-tiktok:hover .icon {
             color: #000000;
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
@@ -187,9 +243,10 @@
             text-align: center;
             margin-top: 3rem;
             font-size: 0.75rem;
-            color: #8a99ae;
-            border-top: 1px solid rgba(148, 163, 184, 0.2);
+            color: var(--footer-color);
+            border-top: 1px solid var(--footer-border);
             padding-top: 1.8rem;
+            transition: color 0.2s, border-color 0.2s;
         }
     </style>
 </head>
@@ -230,14 +287,14 @@
             <span class="username">@perevod_litmati</span>
         </a>
 
-        <!-- 4. Сайт (новая карточка) -->
-        <a href="https://litmati.github.io/mell/" 
+        <!-- 4. Сайт -->
+        <a href="https://litmati.github.io/perevod/" 
            class="card card-site" 
            target="_blank" 
            rel="noopener noreferrer">
             <i class="fas fa-globe icon"></i>
             <span class="label">мой сайт</span>
-            <span class="username">litmati.github.io/mell</span>
+            <span class="username">litmati.github.io/perevod</span>
         </a>
     </div>
 
